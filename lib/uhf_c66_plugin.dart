@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class UhfC72Plugin {
+class UhfC66Plugin {
   static const MethodChannel _channel = const MethodChannel('uhf_plugin');
 
   static Future<String?> get platformVersion async {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:uhf_c72_plugin/uhf_c72_plugin.dart';
-import 'package:uhf_c72_plugin/tag_epc.dart';
+import 'package:uhf_c66_plugin/uhf_c66_plugin.dart';
+import 'package:uhf_c66_plugin/tag_epc.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,15 +30,15 @@ class _MyAppState extends State<MyApp> {
     String? platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await UhfC72Plugin.platformVersion;
+      platformVersion = await UhfC66Plugin.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-    UhfC72Plugin.connectedStatusStream.receiveBroadcastStream().listen(updateIsConnected);
-    UhfC72Plugin.tagsStatusStream.receiveBroadcastStream().listen(updateTags);
-    await UhfC72Plugin.connect;
-    await UhfC72Plugin.setWorkArea('2');
-    await UhfC72Plugin.setPowerLevel('30');
+    UhfC66Plugin.connectedStatusStream.receiveBroadcastStream().listen(updateIsConnected);
+    UhfC66Plugin.tagsStatusStream.receiveBroadcastStream().listen(updateTags);
+    await UhfC66Plugin.connect;
+    await UhfC66Plugin.setWorkArea('2');
+    await UhfC66Plugin.setPowerLevel('30');
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
@@ -103,12 +103,12 @@ class _MyAppState extends State<MyApp> {
                   RaisedButton(
                       child: Text('Call connect'),
                       onPressed: () async {
-                        await UhfC72Plugin.connect;
+                        await UhfC66Plugin.connect;
                       }),
                   RaisedButton(
                       child: Text('Call is Connected'),
                       onPressed: () async {
-                        bool isConnected = await UhfC72Plugin.isConnected;
+                        bool isConnected = await UhfC66Plugin.isConnected;
                         setState(() {
                           this._isConnected = isConnected;
                         });
@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool? isStarted = await UhfC72Plugin.startSingle;
+                        bool? isStarted = await UhfC66Plugin.startSingle;
                         log('Start signle $isStarted');
                       }),
                   RaisedButton(
@@ -145,13 +145,13 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool? isStarted = await UhfC72Plugin.startContinuous;
+                        bool? isStarted = await UhfC66Plugin.startContinuous;
                         log('Start Continuous $isStarted');
                       }),
                   /* RaisedButton(
                       child: Text('Call isStarted'),
                       onPressed: () async {
-                        bool isStarted = await UhfC72Plugin.isStarted;
+                        bool isStarted = await UhfC66Plugin.isStarted;
                         setState(() {
                           this._isStarted = isStarted;
                         });
@@ -175,13 +175,13 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    bool? isStopped = await UhfC72Plugin.stop;
+                    bool? isStopped = await UhfC66Plugin.stop;
                     log('Stop $isStopped');
                   }),
               /*   RaisedButton(
                       child: Text('Call Close'),
                       onPressed: () async {
-                        await UhfC72Plugin.close;
+                        await UhfC66Plugin.close;
                       }),
                 ],
               ),
@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    await UhfC72Plugin.clearData;
+                    await UhfC66Plugin.clearData;
                     setState(() {
                       _data = [];
                     });
@@ -206,7 +206,7 @@ class _MyAppState extends State<MyApp> {
               /* RaisedButton(
                       child: Text('Call is Empty Tags'),
                       onPressed: () async {
-                        bool isEmptyTags = await UhfC72Plugin.isEmptyTags;
+                        bool isEmptyTags = await UhfC66Plugin.isEmptyTags;
                         setState(() {
                           this._isEmptyTags = isEmptyTags;
                         });
@@ -239,7 +239,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool? isSetPower = await UhfC72Plugin.setPowerLevel(powerLevelController.text);
+                        bool? isSetPower = await UhfC66Plugin.setPowerLevel(powerLevelController.text);
                         log('isSetPower $isSetPower');
                       }),
                 ],
@@ -270,7 +270,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool? isSetWorkArea = await UhfC72Plugin.setWorkArea(workAreaController.text);
+                        bool? isSetWorkArea = await UhfC66Plugin.setWorkArea(workAreaController.text);
                         log('isSetWorkArea $isSetWorkArea');
                       }),
                 ],

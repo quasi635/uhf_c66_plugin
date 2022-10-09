@@ -13,7 +13,7 @@ https://pub.dev/packages/uhf_plugin
 ### Getting Started
 
 - Import the library:
-  `import 'package:uhf_c72_plugin/uhf_c72_plugin.dart';`
+  `import 'package:uhf_c66_plugin/uhf_c66_plugin.dart';`
 
 - Open connection to the UHF reader
 

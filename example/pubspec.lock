@@ -156,7 +156,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
-  uhf_c72_plugin:
+  uhf_c66_plugin:
     dependency: "direct main"
     description:
       path: ".."

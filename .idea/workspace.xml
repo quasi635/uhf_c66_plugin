@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4228b2c2-7196-462a-80a1-703762f97031" name="Default Changelist" comment="Migrated to null safety">
-      <change beforePath="$PROJECT_DIR$/lib/uhf_c72_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/uhf_c72_plugin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/uhf_c66_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/uhf_c66_plugin.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

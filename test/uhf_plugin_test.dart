@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:uhf_c72_plugin/uhf_c72_plugin.dart';
+import 'package:uhf_c66_plugin/uhf_c66_plugin.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('uhf_plugin');
@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await UhfC72Plugin.platformVersion, '42');
+    expect(await UhfC66Plugin.platformVersion, '42');
   });
 }
