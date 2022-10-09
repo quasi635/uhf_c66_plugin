@@ -73,7 +73,7 @@ public class UHFHelper {
         if (mReader != null) {
             isConnect = mReader.init();
             //mReader.setFrequencyMode(2);
-//mReader.setPower(29);
+            //mReader.setPower(29);
             uhfListener.onConnect(isConnect, 0);
             return isConnect;
         }

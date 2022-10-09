@@ -17,8 +17,7 @@ class _MyAppState extends State<MyApp> {
   bool _isStarted = false;
   bool _isEmptyTags = false;
   bool _isConnected = false;
-  TextEditingController powerLevelController =
-      TextEditingController(text: '26');
+  TextEditingController powerLevelController = TextEditingController(text: '26');
   TextEditingController workAreaController = TextEditingController(text: '1');
   @override
   void initState() {
@@ -28,16 +27,14 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String? platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await UhfC72Plugin.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-    UhfC72Plugin.connectedStatusStream
-        .receiveBroadcastStream()
-        .listen(updateIsConnected);
+    UhfC72Plugin.connectedStatusStream.receiveBroadcastStream().listen(updateIsConnected);
     UhfC72Plugin.tagsStatusStream.receiveBroadcastStream().listen(updateTags);
     await UhfC72Plugin.connect;
     await UhfC72Plugin.setWorkArea('2');
@@ -48,7 +45,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _platformVersion = platformVersion!;
     });
   }
 
@@ -135,7 +132,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool isStarted = await UhfC72Plugin.startSingle;
+                        bool? isStarted = await UhfC72Plugin.startSingle;
                         log('Start signle $isStarted');
                       }),
                   RaisedButton(
@@ -148,7 +145,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool isStarted = await UhfC72Plugin.startContinuous;
+                        bool? isStarted = await UhfC72Plugin.startContinuous;
                         log('Start Continuous $isStarted');
                       }),
                   /* RaisedButton(
@@ -178,7 +175,7 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    bool isStopped = await UhfC72Plugin.stop;
+                    bool? isStopped = await UhfC72Plugin.stop;
                     log('Stop $isStopped');
                   }),
               /*   RaisedButton(
@@ -242,8 +239,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool isSetPower = await UhfC72Plugin.setPowerLevel(
-                            powerLevelController.text);
+                        bool? isSetPower = await UhfC72Plugin.setPowerLevel(powerLevelController.text);
                         log('isSetPower $isSetPower');
                       }),
                 ],
@@ -274,8 +270,7 @@ class _MyAppState extends State<MyApp> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        bool isSetWorkArea = await UhfC72Plugin.setWorkArea(
-                            workAreaController.text);
+                        bool? isSetWorkArea = await UhfC72Plugin.setWorkArea(workAreaController.text);
                         log('isSetWorkArea $isSetWorkArea');
                       }),
                 ],
