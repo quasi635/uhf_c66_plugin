@@ -27,9 +27,7 @@ class TagEpc {
         "KEY_RSSI": rssi,
       };
 
-  static List<TagEpc> parseTags(String str) =>
-      List<TagEpc>.from(json.decode(str).map((x) => TagEpc.fromMap(x)));
+  static List<TagEpc> parseTags(String str) => List<TagEpc>.from(json.decode(str).map((x) => TagEpc.fromMap(x)));
 
-  static String tagEpcToJson(List<TagEpc> data) =>
-      json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
+  static String tagEpcToJson(List<TagEpc> data) => json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
 }

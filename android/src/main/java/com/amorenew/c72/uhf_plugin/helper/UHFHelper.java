@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class UHFHelper {
     private UHFListener uhfListener;
     private boolean isStart = false;
     private boolean isConnect = false;
-    //private boolean isSingleRead = false;
+    // private boolean isSingleRead = false;
     private HashMap<String, EPC> tagList;
 
     private UHFHelper() {
@@ -34,9 +35,9 @@ public class UHFHelper {
         return instance;
     }
 
-    //public RFIDWithUHFUART getReader() {
-    //   return mReader;
-    //}
+    // public RFIDWithUHFUART getReader() {
+    // return mReader;
+    // }
 
     public static boolean isEmpty(CharSequence cs) {
         return cs == null || cs.length() == 0;
@@ -48,7 +49,7 @@ public class UHFHelper {
 
     public void init() {
         // this.context = context;
-        //this.uhfListener = uhfListener;
+        // this.uhfListener = uhfListener;
         tagList = new HashMap<>();
         clearData();
         handler = new Handler() {
@@ -72,8 +73,8 @@ public class UHFHelper {
 
         if (mReader != null) {
             isConnect = mReader.init();
-            //mReader.setFrequencyMode(2);
-            //mReader.setPower(29);
+            // mReader.setFrequencyMode(2);
+            // mReader.setPower(29);
             uhfListener.onConnect(isConnect, 0);
             return isConnect;
         }
@@ -92,8 +93,8 @@ public class UHFHelper {
                 } else {
                     return false;
                 }
-            } else {// Auto read multi  .startInventoryTag((byte) 0, (byte) 0))
-                //  mContext.mReader.setEPCTIDMode(true);
+            } else {// Auto read multi .startInventoryTag((byte) 0, (byte) 0))
+                // mContext.mReader.setEPCTIDMode(true);
                 if (mReader.startInventoryTag()) {
                     isStart = true;
                     new TagThread().start();
@@ -129,8 +130,16 @@ public class UHFHelper {
         clearData();
     }
 
+    public boolean writeEPC(String writeData, String accessPwd) {
+        Console.writeline("Hey");
+        if (mReader != null) {
+            return mReader.writeDataToEpc(accessPwd, writeData);
+        }
+        return false;
+    }
+
     public boolean setPowerLevel(String level) {
-        //5 dBm : 30 dBm
+        // 5 dBm : 30 dBm
         if (mReader != null) {
             return mReader.setPower(Integer.parseInt(level));
         }
@@ -138,12 +147,12 @@ public class UHFHelper {
     }
 
     public boolean setWorkArea(String area) {
-        //China Area 920~925MHz
-        //Chin2a Area 840~845MHz
-        //ETSI Area 865~868MHz
-        //Fixed Area 915MHz
-        //United States Area 902~928MHz
-        //{ "1", "2" 4", "8", "22", "50", "51", "52", "128"}
+        // China Area 920~925MHz
+        // Chin2a Area 840~845MHz
+        // ETSI Area 865~868MHz
+        // Fixed Area 915MHz
+        // United States Area 902~928MHz
+        // { "1", "2" 4", "8", "22", "50", "51", "52", "128"}
         if (mReader != null)
             return mReader.setFrequencyMode(Integer.parseInt(area));
         return false;

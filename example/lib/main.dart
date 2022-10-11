@@ -39,8 +39,8 @@ class MyAppState extends State<MyApp> {
     UhfC66Plugin.connectedStatusStream.receiveBroadcastStream().listen(updateIsConnected);
     UhfC66Plugin.tagsStatusStream.receiveBroadcastStream().listen(updateTags);
     await UhfC66Plugin.connect;
-    await UhfC66Plugin.setWorkArea('2');
-    await UhfC66Plugin.setPowerLevel('30');
+    await UhfC66Plugin.setWorkArea('5');
+    await UhfC66Plugin.setPowerLevel('20');
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
@@ -205,6 +205,24 @@ class MyAppState extends State<MyApp> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
+              Visibility(
+                visible: true,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    String accessPwd = "000000000000";
+                    String epcData = "112233445566778899101112";
+                    bool? isWritten = await UhfC66Plugin.writeEpc(epcData, accessPwd);
+                    log('Written $isWritten');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                  ),
+                  child: const Text(
+                    'Write EPC',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
               /* RaisedButton(
                       child: Text('Call is Empty Tags'),
                       onPressed: () async {
@@ -287,18 +305,6 @@ class MyAppState extends State<MyApp> {
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 color: Colors.blueAccent,
               ),
-              ..._logs.map((String msg) => Card(
-                    color: Colors.blue.shade50,
-                    child: Container(
-                      width: 330,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Log: $msg',
-                        style: TextStyle(color: Colors.blue.shade800),
-                      ),
-                    ),
-                  )),
               ..._data.map((TagEpc tag) => Card(
                     color: Colors.blue.shade50,
                     child: Container(
@@ -307,6 +313,18 @@ class MyAppState extends State<MyApp> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Tag ${tag.epc} Count:${tag.count}',
+                        style: TextStyle(color: Colors.blue.shade800),
+                      ),
+                    ),
+                  )),
+              ..._logs.map((String msg) => Card(
+                    color: Colors.blue.shade50,
+                    child: Container(
+                      width: 330,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Log: $msg',
                         style: TextStyle(color: Colors.blue.shade800),
                       ),
                     ),

@@ -49,6 +49,10 @@ class UhfC66Plugin {
     return _channel.invokeMethod('isConnected');
   }
 
+  static Future<bool?> writeEpc(String writeData, String accessPwd) async {
+    return _channel.invokeMethod('writeEpc', <String, String>{'writeData': writeData, 'accessPwd': accessPwd});
+  }
+
   static Future<bool?> setPowerLevel(String value) async {
     return _channel.invokeMethod('setPowerLevel', <String, String>{'value': value});
   }

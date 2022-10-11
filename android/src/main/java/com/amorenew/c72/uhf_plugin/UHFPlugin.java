@@ -32,6 +32,7 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
     private static final String CHANNEL_Close = "close";
     private static final String CHANNEL_Connect = "connect";
     private static final String CHANNEL_IsConnected = "isConnected";
+    private static final String CHANNEL_WriteEPC = "writeEpc";
     private static final String CHANNEL_SETPOWERLEVEL = "setPowerLevel";
     private static final String CHANNEL_SETWORKAREA = "setWorkArea";
     private static final String CHANNEL_ConnectedStatus = "ConnectedStatus";
@@ -39,14 +40,19 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
     private static PublishSubject<Boolean> connectedStatus = PublishSubject.create();
     private static PublishSubject<String> tagsStatus = PublishSubject.create();
 
-    // This static function is optional and equivalent to onAttachedToEngine. It supports the old
+    // This static function is optional and equivalent to onAttachedToEngine. It
+    // supports the old
     // pre-Flutter-1.12 Android projects. You are encouraged to continue supporting
-    // plugin registration via this function while apps migrate to use the new Android APIs
+    // plugin registration via this function while apps migrate to use the new
+    // Android APIs
     // post-flutter-1.12 via https://flutter.dev/go/android-project-migration.
     //
-    // It is encouraged to share logic between onAttachedToEngine and registerWith to keep
-    // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
-    // depending on the user's project. onAttachedToEngine or registerWith must both be defined
+    // It is encouraged to share logic between onAttachedToEngine and registerWith
+    // to keep
+    // them functionally equivalent. Only one of onAttachedToEngine or registerWith
+    // will be called
+    // depending on the user's project. onAttachedToEngine or registerWith must both
+    // be defined
     // in the same class.
     public static void registerWith(Registrar registrar) {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), "uhf_plugin");
@@ -91,7 +97,6 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
         });
     }
 
-
     private static void initConnectedEvent(BinaryMessenger messenger) {
         final EventChannel scannerEventChannel = new EventChannel(messenger, CHANNEL_ConnectedStatus);
         scannerEventChannel.setStreamHandler(new EventChannel.StreamHandler() {
@@ -100,26 +105,26 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
                 connectedStatus
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Boolean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onNext(Boolean isConnected) {
-                        eventSink.success(isConnected);
-                    }
+                            @Override
+                            public void onNext(Boolean isConnected) {
+                                eventSink.success(isConnected);
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onComplete() {
+                            @Override
+                            public void onComplete() {
 
-                    }
-                });
+                            }
+                        });
             }
 
             @Override
@@ -137,26 +142,26 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
                 tagsStatus
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onNext(String tag) {
-                        eventSink.success(tag);
-                    }
+                            @Override
+                            public void onNext(String tag) {
+                                eventSink.success(tag);
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onComplete() {
+                            @Override
+                            public void onComplete() {
 
-                    }
-                });
+                            }
+                        });
             }
 
             @Override
@@ -165,7 +170,6 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
             }
         });
     }
-
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
@@ -206,6 +210,11 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
             case CHANNEL_IsConnected:
                 result.success(UHFHelper.getInstance().isConnected());
                 break;
+            case CHANNEL_WriteEPC:
+                String writeData = call.argument("writeData");
+                String accessPwd = call.argument("accessPwd");
+                result.success(UHFHelper.getInstance().writeEPC(writeData, accessPwd));
+                break;
             case CHANNEL_SETPOWERLEVEL:
                 String powerLevel = call.argument("value");
                 result.success(UHFHelper.getInstance().setPowerLevel(powerLevel));
@@ -222,6 +231,5 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     }
-
 
 }
