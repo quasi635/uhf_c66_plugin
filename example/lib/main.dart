@@ -5,14 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:uhf_c66_plugin/uhf_c66_plugin.dart';
 import 'package:uhf_c66_plugin/tag_epc.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   bool _isStarted = false;
   bool _isEmptyTags = false;
@@ -49,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  List<String> _logs = [];
+  final List<String> _logs = [];
   void log(String msg) {
     setState(() {
       _logs.add(msg);
@@ -122,32 +124,32 @@ class _MyAppState extends State<MyApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      color: Colors.blueAccent,
-                      child: Text(
-                        'Call Start Single',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        bool? isStarted = await UhfC66Plugin.startSingle;
-                        log('Start signle $isStarted');
-                      }),
-                  RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      color: Colors.blueAccent,
-                      child: Text(
-                        'Call Start Continuous Reading',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        bool? isStarted = await UhfC66Plugin.startContinuous;
-                        log('Start Continuous $isStarted');
-                      }),
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool? isStarted = await UhfC66Plugin.startSingle;
+                      log('Start single $isStarted');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                    ),
+                    child: const Text(
+                      'Call Start Single',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool? isStarted = await UhfC66Plugin.startContinuous;
+                      log('Start Continuous $isStarted');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                    ),
+                    child: const Text(
+                      'Call Start Continuous Reading',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                   /* RaisedButton(
                       child: Text('Call isStarted'),
                       onPressed: () async {
@@ -165,19 +167,19 @@ class _MyAppState extends State<MyApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[*/
-              RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  color: Colors.blueAccent,
-                  child: Text(
-                    'Call Stop',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    bool? isStopped = await UhfC66Plugin.stop;
-                    log('Stop $isStopped');
-                  }),
+              ElevatedButton(
+                onPressed: () async {
+                  bool? isStopped = await UhfC66Plugin.stop;
+                  log('Stop $isStopped');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                ),
+                child: const Text(
+                  'Call Stop',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
               /*   RaisedButton(
                       child: Text('Call Close'),
                       onPressed: () async {
@@ -188,21 +190,21 @@ class _MyAppState extends State<MyApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[*/
-              RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  color: Colors.blueAccent,
-                  child: Text(
-                    'Call Clear Data',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    await UhfC66Plugin.clearData;
-                    setState(() {
-                      _data = [];
-                    });
-                  }),
+              ElevatedButton(
+                onPressed: () async {
+                  await UhfC66Plugin.clearData;
+                  setState(() {
+                    _data = [];
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                ),
+                child: const Text(
+                  'Call Clear Data',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
               /* RaisedButton(
                       child: Text('Call is Empty Tags'),
                       onPressed: () async {
@@ -220,28 +222,28 @@ class _MyAppState extends State<MyApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 100,
                     child: TextFormField(
                       controller: powerLevelController,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(labelText: 'Power Level'),
+                      decoration: const InputDecoration(labelText: 'Power Level'),
                     ),
                   ),
-                  RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      color: Colors.green,
-                      child: Text(
-                        'Set Power Level',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        bool? isSetPower = await UhfC66Plugin.setPowerLevel(powerLevelController.text);
-                        log('isSetPower $isSetPower');
-                      }),
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool? isSetPower = await UhfC66Plugin.setPowerLevel(powerLevelController.text);
+                      log('isSetPower $isSetPower');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    child: const Text(
+                      'Set Power Level',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
               Text(
@@ -251,28 +253,28 @@ class _MyAppState extends State<MyApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 100,
                     child: TextFormField(
                       controller: workAreaController,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(labelText: 'Work Area'),
+                      decoration: const InputDecoration(labelText: 'Work Area'),
                     ),
                   ),
-                  RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      color: Colors.green,
-                      child: Text(
-                        'Set Work Area',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        bool? isSetWorkArea = await UhfC66Plugin.setWorkArea(workAreaController.text);
-                        log('isSetWorkArea $isSetWorkArea');
-                      }),
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool? isSetWorkArea = await UhfC66Plugin.setWorkArea(workAreaController.text);
+                      log('isSetWorkArea $isSetWorkArea');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    child: const Text(
+                      'Set Work Area',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
               Text(
@@ -282,7 +284,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 width: double.infinity,
                 height: 2,
-                margin: EdgeInsets.symmetric(vertical: 8),
+                margin: const EdgeInsets.symmetric(vertical: 8),
                 color: Colors.blueAccent,
               ),
               ..._logs.map((String msg) => Card(
