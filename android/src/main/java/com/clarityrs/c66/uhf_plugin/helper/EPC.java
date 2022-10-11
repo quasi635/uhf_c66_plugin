@@ -1,4 +1,4 @@
-package com.amorenew.c72.uhf_plugin.helper;
+package com.clarityrs.c66.uhf_plugin.helper;
 
 public class EPC {
     private String count;

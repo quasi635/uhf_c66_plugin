@@ -19,5 +19,5 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amorenew.c72.uhf_plugin
+        package: com.clarityrs.c66.uhf_plugin
         pluginClass: UHFPlugin

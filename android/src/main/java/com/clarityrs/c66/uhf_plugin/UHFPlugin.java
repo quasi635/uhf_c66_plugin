@@ -1,7 +1,7 @@
-package com.amorenew.c72.uhf_plugin;
+package com.clarityrs.c66.uhf_plugin;
 
-import com.amorenew.c72.uhf_plugin.helper.UHFHelper;
-import com.amorenew.c72.uhf_plugin.helper.UHFListener;
+import com.clarityrs.c66.uhf_plugin.helper.UHFHelper;
+import com.clarityrs.c66.uhf_plugin.helper.UHFListener;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;

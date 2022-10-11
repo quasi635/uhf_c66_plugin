@@ -1,4 +1,4 @@
-package com.amorenew.c72.uhf_plugin.helper;
+package com.clarityrs.c66.uhf_plugin.helper;
 
 import android.os.Handler;
 import android.os.Message;
@@ -131,7 +131,6 @@ public class UHFHelper {
     }
 
     public boolean writeEPC(String writeData, String accessPwd) {
-        Console.writeline("Hey");
         if (mReader != null) {
             return mReader.writeDataToEpc(accessPwd, writeData);
         }

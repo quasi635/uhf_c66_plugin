@@ -1,4 +1,4 @@
-group 'com.amorenew.c72.uhf_plugin'
+group 'com.clarityrs.c66.uhf_plugin'
 version '1.0'
 
 buildscript {
