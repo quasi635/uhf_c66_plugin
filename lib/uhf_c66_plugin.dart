@@ -57,7 +57,15 @@ class UhfC66Plugin {
     return _channel.invokeMethod('setPowerLevel', <String, String>{'value': value});
   }
 
+  static Future<int?> get getPowerLevel async {
+    return _channel.invokeMethod('getPowerLevel');
+  }
+
   static Future<bool?> setWorkArea(String value) async {
     return _channel.invokeMethod('setWorkArea', <String, String>{'value': value});
+  }
+
+  static Future<int?> get getWorkArea async {
+    return _channel.invokeMethod('getWorkArea');
   }
 }

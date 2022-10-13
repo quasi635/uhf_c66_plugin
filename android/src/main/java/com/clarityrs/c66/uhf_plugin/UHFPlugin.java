@@ -33,8 +33,10 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
     private static final String CHANNEL_Connect = "connect";
     private static final String CHANNEL_IsConnected = "isConnected";
     private static final String CHANNEL_WriteEPC = "writeEpc";
-    private static final String CHANNEL_SETPOWERLEVEL = "setPowerLevel";
-    private static final String CHANNEL_SETWORKAREA = "setWorkArea";
+    private static final String CHANNEL_SetPowerLevel = "setPowerLevel";
+    private static final String CHANNEL_GetPowerLevel = "getPowerLevel";
+    private static final String CHANNEL_SetWorkArea = "setWorkArea";
+    private static final String CHANNEL_GetWorkArea = "getWorkArea";
     private static final String CHANNEL_ConnectedStatus = "ConnectedStatus";
     private static final String CHANNEL_TagsStatus = "TagsStatus";
     private static PublishSubject<Boolean> connectedStatus = PublishSubject.create();
@@ -215,13 +217,19 @@ public class UHFPlugin implements FlutterPlugin, MethodCallHandler {
                 String accessPwd = call.argument("accessPwd");
                 result.success(UHFHelper.getInstance().writeEPC(writeData, accessPwd));
                 break;
-            case CHANNEL_SETPOWERLEVEL:
+            case CHANNEL_SetPowerLevel:
                 String powerLevel = call.argument("value");
                 result.success(UHFHelper.getInstance().setPowerLevel(powerLevel));
                 break;
-            case CHANNEL_SETWORKAREA:
+            case CHANNEL_GetPowerLevel:
+                result.success(UHFHelper.getInstance().getPowerLevel());
+                break;
+            case CHANNEL_SetWorkArea:
                 String workArea = call.argument("value");
                 result.success(UHFHelper.getInstance().setWorkArea(workArea));
+                break;
+            case CHANNEL_GetWorkArea:
+                result.success(UHFHelper.getInstance().getWorkArea());
                 break;
             default:
                 result.notImplemented();

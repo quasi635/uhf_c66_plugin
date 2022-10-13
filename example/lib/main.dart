@@ -19,8 +19,8 @@ class MyAppState extends State<MyApp> {
   bool _isStarted = false;
   bool _isEmptyTags = false;
   bool _isConnected = false;
-  TextEditingController powerLevelController = TextEditingController(text: '26');
-  TextEditingController workAreaController = TextEditingController(text: '1');
+  TextEditingController powerLevelController = TextEditingController(text: "");
+  TextEditingController workAreaController = TextEditingController(text: "");
   @override
   void initState() {
     super.initState();
@@ -31,6 +31,13 @@ class MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     String? platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
+
+    String uhfWorkArea = (await UhfC66Plugin.getWorkArea).toString();
+    String uhfPowerLevel = (await UhfC66Plugin.getPowerLevel).toString();
+
+    powerLevelController = TextEditingController(text: uhfPowerLevel);
+    workAreaController = TextEditingController(text: uhfWorkArea);
+
     try {
       platformVersion = await UhfC66Plugin.platformVersion;
     } on PlatformException {
@@ -39,8 +46,8 @@ class MyAppState extends State<MyApp> {
     UhfC66Plugin.connectedStatusStream.receiveBroadcastStream().listen(updateIsConnected);
     UhfC66Plugin.tagsStatusStream.receiveBroadcastStream().listen(updateTags);
     await UhfC66Plugin.connect;
-    await UhfC66Plugin.setWorkArea('5');
-    await UhfC66Plugin.setPowerLevel('20');
+    await UhfC66Plugin.setWorkArea(uhfWorkArea);
+    await UhfC66Plugin.setPowerLevel(uhfPowerLevel);
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.

@@ -138,23 +138,46 @@ public class UHFHelper {
     }
 
     public boolean setPowerLevel(String level) {
-        // 5 dBm : 30 dBm
+        // 1-30 dBm
         if (mReader != null) {
             return mReader.setPower(Integer.parseInt(level));
         }
         return false;
     }
 
+    public Integer getPowerLevel() {
+        if (mReader != null) {
+            return mReader.getPower();
+        }
+        return -1;
+    }
+
     public boolean setWorkArea(String area) {
-        // China Area 920~925MHz
-        // Chin2a Area 840~845MHz
-        // ETSI Area 865~868MHz
-        // Fixed Area 915MHz
-        // United States Area 902~928MHz
-        // { "1", "2" 4", "8", "22", "50", "51", "52", "128"}
+        /*
+         * 0x01：China Standard(840~845MHz)
+         * 0x02：China Standard2(920~925MHz)
+         * 0x04：Europe Standard(865~868MHz)
+         * 0x08：USA(902-928MHz)
+         * 0x16：Korea(917~923MHz)
+         * 0x32: Japan(952~953MHz)
+         * 0x33: South Africa(915~919MHz)
+         * 0x34: China Taiwan
+         * 0x35:Vietnam(918~923MHz)
+         * 0x36:Peru(915MHz-928MHz)
+         * 0x37:Russia( 860MHz-867.6MHz)
+         * 0x80 Morocco
+         */
+
         if (mReader != null)
             return mReader.setFrequencyMode(Integer.parseInt(area));
         return false;
+    }
+
+    public Integer getWorkArea() {
+        if (mReader != null) {
+            return mReader.getFrequencyMode();
+        }
+        return -1;
     }
 
     /**
